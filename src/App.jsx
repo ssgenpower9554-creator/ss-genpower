@@ -7,6 +7,7 @@ import {
 import Login from "./admin/Login";
 import Dashboard from "./admin/Dashboard";
 import Gallery from "./admin/Gallery";
+import ContactForm from "./components/ContactForm";
 
 function Home() {
 
@@ -212,8 +213,9 @@ function Home() {
           color:"#ccc",
           marginTop:"10px"
         }}>
-          Kanpur, Uttar Pradesh
+          Lucknow, Uttar Pradesh
         </p>
+        <ContactForm />
 
       </section>
 
