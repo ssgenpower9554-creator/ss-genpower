@@ -1,117 +1,115 @@
 import { useState } from "react";
-
-import {
-  getAuth,
-  signInWithEmailAndPassword
-} from "firebase/auth";
-
-import app from "../firebaseConfig";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import app from "../firebase/firebaseConfig";
 
 const auth = getAuth(app);
 
-function Login() {
+export default function Login() {
+  const navigate = useNavigate();
 
-  const [email,setEmail] = useState("");
-  const [password,setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const loginUser = async () => {
+  const loginUser = async (e) => {
+    e.preventDefault();
 
     try {
-
-      await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      await signInWithEmailAndPassword(auth, email, password);
 
       alert("Login Successful");
 
-      window.location.href = "/dashboard";
-
-    } catch(error) {
-
-      alert("Invalid Email or Password");
-
-      console.log(error);
-
+      navigate("/admin/dashboard");
+    } catch (error) {
+      alert(error.message);
     }
-
   };
 
   return (
-
-    <div style={{
-      minHeight:"100vh",
-      background:"#071f18",
-      display:"flex",
-      justifyContent:"center",
-      alignItems:"center",
-      fontFamily:"Arial"
-    }}>
-
-      <div style={{
-        background:"#102f27",
-        padding:"40px",
-        borderRadius:"20px",
-        width:"350px",
-        boxShadow:"0 0 20px rgba(0,0,0,0.3)"
-      }}>
-
-        <h2 style={{
-          color:"#d9b23f",
-          textAlign:"center",
-          marginBottom:"30px"
-        }}>
-          Admin Login
-        </h2>
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "#001b16",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: "20px",
+      }}
+    >
+      <form
+        onSubmit={loginUser}
+        style={{
+          width: "100%",
+          maxWidth: "400px",
+          background: "#032822",
+          padding: "30px",
+          borderRadius: "20px",
+          boxShadow: "0 0 20px rgba(0,0,0,0.4)",
+        }}
+      >
+        <h1
+          style={{
+            color: "#d4af37",
+            textAlign: "center",
+            marginBottom: "30px",
+            fontSize: "40px",
+            fontWeight: "bold",
+          }}
+        >
+          ADMIN LOGIN
+        </h1>
 
         <input
           type="email"
-          placeholder="Email"
+          placeholder="Enter Email"
           value={email}
-          onChange={(e)=>setEmail(e.target.value)}
-          style={input}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          style={{
+            width: "100%",
+            padding: "15px",
+            marginBottom: "20px",
+            borderRadius: "10px",
+            border: "none",
+            outline: "none",
+            fontSize: "16px",
+          }}
         />
 
         <input
           type="password"
-          placeholder="Password"
+          placeholder="Enter Password"
           value={password}
-          onChange={(e)=>setPassword(e.target.value)}
-          style={input}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          style={{
+            width: "100%",
+            padding: "15px",
+            marginBottom: "20px",
+            borderRadius: "10px",
+            border: "none",
+            outline: "none",
+            fontSize: "16px",
+          }}
         />
 
         <button
-          onClick={loginUser}
+          type="submit"
           style={{
-            width:"100%",
-            padding:"15px",
-            background:"#d9b23f",
-            border:"none",
-            borderRadius:"10px",
-            fontWeight:"bold",
-            fontSize:"16px",
-            cursor:"pointer"
+            width: "100%",
+            padding: "15px",
+            background: "#d4af37",
+            color: "#000",
+            border: "none",
+            borderRadius: "10px",
+            fontSize: "18px",
+            fontWeight: "bold",
+            cursor: "pointer",
           }}
         >
           Login
         </button>
-
-      </div>
-
+      </form>
     </div>
-
   );
 }
-
-const input = {
-  width:"100%",
-  padding:"15px",
-  marginBottom:"15px",
-  borderRadius:"10px",
-  border:"none",
-  outline:"none",
-  fontSize:"15px"
-};
-
-export default Login;
