@@ -1,14 +1,16 @@
 import {
   BrowserRouter,
   Routes,
-  Route
+  Route,
+  Link
 } from "react-router-dom";
 
 import Login from "./admin/Login";
 import Dashboard from "./admin/Dashboard";
 import Gallery from "./admin/Gallery";
-import ContactForm from "./components/ContactForm";
 import Products from "./admin/Products";
+
+import ContactForm from "./components/ContactForm";
 
 function Home() {
 
@@ -52,6 +54,10 @@ function Home() {
             Services
           </a>
 
+          <a href="#products" style={link}>
+            Products
+          </a>
+
           <a href="#gallery" style={link}>
             Gallery
           </a>
@@ -90,11 +96,11 @@ function Home() {
           marginTop:"20px",
           fontSize:"24px",
           color:"#ccc",
-          maxWidth:"800px",
+          maxWidth:"850px",
           lineHeight:"40px"
         }}>
           Generator Repair • Installation •
-          Maintenance • Industrial Power Solutions
+          Maintenance • AMC • Industrial Power Solutions
         </p>
 
         <a
@@ -134,22 +140,56 @@ function Home() {
           <div style={card}>
             <h3>Generator Repair</h3>
             <p>
-              Complete generator repair service.
+              Complete generator repair solutions.
             </p>
           </div>
 
           <div style={card}>
             <h3>Installation</h3>
             <p>
-              Home and industrial installation.
+              Home & industrial installation.
             </p>
           </div>
 
           <div style={card}>
             <h3>AMC Service</h3>
             <p>
-              Affordable maintenance solutions.
+              Affordable maintenance contracts.
             </p>
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* PRODUCTS */}
+
+      <section
+        id="products"
+        style={{
+          padding:"80px 20px"
+        }}
+      >
+
+        <h2 style={title}>
+          OUR PRODUCTS
+        </h2>
+
+        <div style={grid}>
+
+          <div style={card}>
+            <h3>Silent Generator</h3>
+            <p>Industrial silent generator solutions.</p>
+          </div>
+
+          <div style={card}>
+            <h3>Diesel Generator</h3>
+            <p>Heavy duty power backup generators.</p>
+          </div>
+
+          <div style={card}>
+            <h3>Portable Generator</h3>
+            <p>Compact and portable generator units.</p>
           </div>
 
         </div>
@@ -207,15 +247,16 @@ function Home() {
         <p style={{
           fontSize:"24px"
         }}>
-          📞 +91 9554813006
+          📞 +91 9335723818
         </p>
 
         <p style={{
           color:"#ccc",
           marginTop:"10px"
         }}>
-          Lucknow, Uttar Pradesh
+          Kanpur, Uttar Pradesh
         </p>
+
         <ContactForm />
 
       </section>
@@ -232,7 +273,7 @@ function Home() {
 
       </footer>
 
-      {/* FLOATING BUTTON */}
+      {/* FLOATING WHATSAPP */}
 
       <a
         href="https://wa.me/919335723818"
@@ -308,7 +349,10 @@ export default function App() {
 
       <Routes>
 
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={<Home />}
+        />
 
         <Route
           path="/admin"
@@ -319,15 +363,15 @@ export default function App() {
           path="/admin/dashboard"
           element={<Dashboard />}
         />
-        
-        <Route
-  path="/admin/products"
-  element={<Products />}
-/>
 
         <Route
           path="/admin/gallery"
           element={<Gallery />}
+        />
+
+        <Route
+          path="/admin/products"
+          element={<Products />}
         />
 
       </Routes>
@@ -336,4 +380,4 @@ export default function App() {
 
   );
 
-      }
+}
