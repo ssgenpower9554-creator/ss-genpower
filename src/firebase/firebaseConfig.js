@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDePC2d62_Y9gnzqNQ2zcQDU",
+  apiKey: "AIzaSyDePC2d62_Y9gmzqN2QzcQDU38ESJYIrmM",
   authDomain: "ss-genpower.firebaseapp.com",
   projectId: "ss-genpower",
   storageBucket: "ss-genpower.firebasestorage.app",
