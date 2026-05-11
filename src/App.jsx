@@ -8,6 +8,7 @@ import Login from "./admin/Login";
 import Dashboard from "./admin/Dashboard";
 import Gallery from "./admin/Gallery";
 import ContactForm from "./components/ContactForm";
+import Products from "./admin/Products";
 
 function Home() {
 
@@ -206,7 +207,7 @@ function Home() {
         <p style={{
           fontSize:"24px"
         }}>
-          📞 +91 9335723818
+          📞 +91 9554813006
         </p>
 
         <p style={{
@@ -318,6 +319,11 @@ export default function App() {
           path="/admin/dashboard"
           element={<Dashboard />}
         />
+        
+        <Route
+  path="/admin/products"
+  element={<Products />}
+/>
 
         <Route
           path="/admin/gallery"
