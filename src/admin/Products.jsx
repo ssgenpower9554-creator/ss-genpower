@@ -1,3 +1,4 @@
+import AdminSidebar from "../components/AdminSidebar";
 import { useEffect, useState } from "react";
 
 import {
@@ -69,6 +70,7 @@ export default function Products() {
   };
 
   return (
+    <AdminSidebar />
 
     <div style={{
       minHeight:"100vh",
