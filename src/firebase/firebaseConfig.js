@@ -6,7 +6,8 @@ const firebaseConfig = {
   projectId: "ss-genpower",
   storageBucket: "ss-genpower.firebasestorage.app",
   messagingSenderId: "1002801053984",
-  appId: "1:1002801053984:web:405ff85c488bc723d69745"
+  appId: "1:1002801053984:web:405ff85c488bc723d69745",
+  measurementId: "G-6MYNLYXMPG"
 };
 
 const app = initializeApp(firebaseConfig);
