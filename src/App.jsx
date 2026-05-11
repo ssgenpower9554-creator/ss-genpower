@@ -9,7 +9,7 @@ import Login from "./admin/Login";
 import Dashboard from "./admin/Dashboard";
 import Gallery from "./admin/Gallery";
 import Products from "./admin/Products";
-
+import MobileMenu from "./components/MobileMenu";
 import ContactForm from "./components/ContactForm";
 
 function Home() {
@@ -23,6 +23,8 @@ function Home() {
     }}>
 
       {/* NAVBAR */}
+
+      <MobileMenu />
 
       <header style={{
         background:"#01251d",
