@@ -13,24 +13,34 @@ export default function Dashboard() {
 
   const [enquiries,setEnquiries] = useState([]);
 
-  const fetchData = async() => {
+  const fetchEnquiries = async() => {
 
-    const snapshot = await getDocs(
-      collection(db,"enquiries")
-    );
+    try {
 
-    const data = snapshot.docs.map((doc)=>({
-      id:doc.id,
-      ...doc.data()
-    }));
+      const snapshot = await getDocs(
+        collection(db,"enquiries")
+      );
 
-    setEnquiries(data);
+      const data = snapshot.docs.map((doc)=>({
+
+        id:doc.id,
+        ...doc.data()
+
+      }));
+
+      setEnquiries(data);
+
+    } catch(error) {
+
+      console.log(error);
+
+    }
 
   };
 
   useEffect(()=>{
 
-    fetchData();
+    fetchEnquiries();
 
   },[]);
 
@@ -40,7 +50,7 @@ export default function Dashboard() {
       doc(db,"enquiries",id)
     );
 
-    fetchData();
+    fetchEnquiries();
 
   };
 
@@ -55,12 +65,29 @@ export default function Dashboard() {
 
       <h1 style={{
         color:"#d4af37",
-        textAlign:"center"
+        textAlign:"center",
+        marginBottom:"30px"
       }}>
         ADMIN DASHBOARD
       </h1>
 
       {
+
+        enquiries.length === 0 ?
+
+        (
+
+          <h2 style={{
+            textAlign:"center",
+            color:"#ccc"
+          }}>
+            No Enquiries Found
+          </h2>
+
+        )
+
+        :
+
         enquiries.map((item)=>(
 
           <div
@@ -68,25 +95,30 @@ export default function Dashboard() {
             style={{
               background:"#01251d",
               padding:"20px",
-              borderRadius:"15px",
-              marginTop:"20px"
+              borderRadius:"20px",
+              marginBottom:"20px"
             }}
           >
 
             <h2>{item.name}</h2>
 
-            <p>{item.phone}</p>
+            <p>
+              <b>Phone:</b> {item.phone}
+            </p>
 
-            <p>{item.message}</p>
+            <p>
+              <b>Message:</b> {item.message}
+            </p>
 
             <button
               onClick={()=>deleteEnquiry(item.id)}
               style={{
-                padding:"10px 20px",
+                marginTop:"15px",
                 background:"red",
+                color:"white",
                 border:"none",
-                borderRadius:"10px",
-                color:"white"
+                padding:"10px 20px",
+                borderRadius:"10px"
               }}
             >
               Delete
@@ -95,10 +127,11 @@ export default function Dashboard() {
           </div>
 
         ))
+
       }
 
     </div>
 
   );
 
-}
+          }
