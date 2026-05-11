@@ -1,3 +1,5 @@
+import AdminSidebar from "../components/AdminSidebar";
+
 import { useState } from "react";
 
 export default function Gallery() {
@@ -19,6 +21,7 @@ export default function Gallery() {
   };
 
   return (
+    <AdminSidebar />
 
     <div style={{
       minHeight:"100vh",
