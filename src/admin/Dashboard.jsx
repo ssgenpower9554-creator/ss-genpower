@@ -1,52 +1,98 @@
+import { useEffect, useState } from "react";
+import {
+  collection,
+  getDocs,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
+
+import { db } from "../firebase/firebaseConfig";
+
 function Dashboard() {
+  const [enquiries, setEnquiries] = useState([]);
+
+  const fetchData = async () => {
+    const querySnapshot = await getDocs(collection(db, "enquiries"));
+
+    const data = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    setEnquiries(data);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const deleteEnquiry = async (id) => {
+    await deleteDoc(doc(db, "enquiries", id));
+    fetchData();
+  };
 
   return (
-    <div style={{
-      minHeight:"100vh",
-      background:"#071f18",
-      color:"#fff",
-      fontFamily:"Arial",
-      padding:"30px"
-    }}>
-
-      <h1 style={{
-        color:"#d9b23f",
-        marginBottom:"30px"
-      }}>
-        Admin Dashboard
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "#001a14",
+        color: "white",
+        padding: "20px",
+      }}
+    >
+      <h1
+        style={{
+          color: "#d4af37",
+          textAlign: "center",
+          marginBottom: "30px",
+        }}
+      >
+        SS GENPOWER ADMIN DASHBOARD
       </h1>
 
-      <div style={{
-        display:"grid",
-        gridTemplateColumns:"repeat(auto-fit,minmax(250px,1fr))",
-        gap:"20px"
-      }}>
+      {enquiries.length === 0 ? (
+        <p>No enquiries found</p>
+      ) : (
+        enquiries.map((item) => (
+          <div
+            key={item.id}
+            style={{
+              background: "#01251d",
+              padding: "20px",
+              borderRadius: "15px",
+              marginBottom: "20px",
+              boxShadow: "0 0 10px rgba(0,0,0,0.4)",
+            }}
+          >
+            <h3>{item.name}</h3>
 
-        <div style={card}>
-          <h2>Total Enquiries</h2>
-          <p>0</p>
-        </div>
+            <p>
+              <b>Phone:</b> {item.phone}
+            </p>
 
-        <div style={card}>
-          <h2>Gallery Images</h2>
-          <p>0</p>
-        </div>
+            <p>
+              <b>Message:</b> {item.message}
+            </p>
 
-        <div style={card}>
-          <h2>Products</h2>
-          <p>0</p>
-        </div>
-
-      </div>
-
+            <button
+              onClick={() => deleteEnquiry(item.id)}
+              style={{
+                background: "red",
+                color: "white",
+                border: "none",
+                padding: "10px 20px",
+                borderRadius: "10px",
+                cursor: "pointer",
+                marginTop: "10px",
+              }}
+            >
+              Delete
+            </button>
+          </div>
+        ))
+      )}
     </div>
-  )
+  );
 }
 
-const card = {
-  background:"#102f27",
-  padding:"30px",
-  borderRadius:"20px"
-}
-
-export default Dashboard
+export default Dashboard;
