@@ -5,7 +5,7 @@ import {
   signInWithEmailAndPassword
 } from "firebase/auth";
 
-import app from "../firebase/firebaseConfig";
+import app from "../firebaseConfig";
 
 const auth = getAuth(app);
 
@@ -16,7 +16,7 @@ function Login() {
 
   const loginUser = async () => {
 
-    try{
+    try {
 
       await signInWithEmailAndPassword(
         auth,
@@ -26,13 +26,20 @@ function Login() {
 
       alert("Login Successful");
 
-    }catch(error){
+      window.location.href = "/dashboard";
+
+    } catch(error) {
+
       alert("Invalid Email or Password");
+
+      console.log(error);
+
     }
 
   };
 
   return (
+
     <div style={{
       minHeight:"100vh",
       background:"#071f18",
@@ -46,7 +53,8 @@ function Login() {
         background:"#102f27",
         padding:"40px",
         borderRadius:"20px",
-        width:"350px"
+        width:"350px",
+        boxShadow:"0 0 20px rgba(0,0,0,0.3)"
       }}>
 
         <h2 style={{
@@ -58,6 +66,7 @@ function Login() {
         </h2>
 
         <input
+          type="email"
           placeholder="Email"
           value={email}
           onChange={(e)=>setEmail(e.target.value)}
@@ -65,8 +74,8 @@ function Login() {
         />
 
         <input
-          placeholder="Password"
           type="password"
+          placeholder="Password"
           value={password}
           onChange={(e)=>setPassword(e.target.value)}
           style={input}
@@ -81,6 +90,7 @@ function Login() {
             border:"none",
             borderRadius:"10px",
             fontWeight:"bold",
+            fontSize:"16px",
             cursor:"pointer"
           }}
         >
@@ -90,7 +100,8 @@ function Login() {
       </div>
 
     </div>
-  )
+
+  );
 }
 
 const input = {
@@ -98,7 +109,9 @@ const input = {
   padding:"15px",
   marginBottom:"15px",
   borderRadius:"10px",
-  border:"none"
-}
+  border:"none",
+  outline:"none",
+  fontSize:"15px"
+};
 
-export default Login
+export default Login;
