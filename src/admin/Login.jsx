@@ -1,115 +1,108 @@
 import { useState } from "react";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase/firebaseConfig";
 import { useNavigate } from "react-router-dom";
-import app from "../firebase/firebaseConfig";
-
-const auth = getAuth(app);
 
 export default function Login() {
+
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email,setEmail] = useState("");
+  const [password,setPassword] = useState("");
 
-  const loginUser = async (e) => {
+  const loginUser = async(e) => {
+
     e.preventDefault();
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+
+      await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
 
       alert("Login Successful");
 
       navigate("/admin/dashboard");
-    } catch (error) {
+
+    } catch(error) {
+
       alert(error.message);
+
     }
+
   };
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "#001b16",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: "20px",
-      }}
-    >
+
+    <div style={{
+      minHeight:"100vh",
+      background:"#001a14",
+      display:"flex",
+      justifyContent:"center",
+      alignItems:"center"
+    }}>
+
       <form
         onSubmit={loginUser}
         style={{
-          width: "100%",
-          maxWidth: "400px",
-          background: "#032822",
-          padding: "30px",
-          borderRadius: "20px",
-          boxShadow: "0 0 20px rgba(0,0,0,0.4)",
+          width:"350px",
+          background:"#01251d",
+          padding:"30px",
+          borderRadius:"20px"
         }}
       >
-        <h1
-          style={{
-            color: "#d4af37",
-            textAlign: "center",
-            marginBottom: "30px",
-            fontSize: "40px",
-            fontWeight: "bold",
-          }}
-        >
+
+        <h1 style={{
+          color:"#d4af37",
+          textAlign:"center"
+        }}>
           ADMIN LOGIN
         </h1>
 
         <input
           type="email"
-          placeholder="Enter Email"
+          placeholder="Email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          style={{
-            width: "100%",
-            padding: "15px",
-            marginBottom: "20px",
-            borderRadius: "10px",
-            border: "none",
-            outline: "none",
-            fontSize: "16px",
-          }}
+          onChange={(e)=>setEmail(e.target.value)}
+          style={input}
         />
 
         <input
           type="password"
-          placeholder="Enter Password"
+          placeholder="Password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          style={{
-            width: "100%",
-            padding: "15px",
-            marginBottom: "20px",
-            borderRadius: "10px",
-            border: "none",
-            outline: "none",
-            fontSize: "16px",
-          }}
+          onChange={(e)=>setPassword(e.target.value)}
+          style={input}
         />
 
-        <button
-          type="submit"
-          style={{
-            width: "100%",
-            padding: "15px",
-            background: "#d4af37",
-            color: "#000",
-            border: "none",
-            borderRadius: "10px",
-            fontSize: "18px",
-            fontWeight: "bold",
-            cursor: "pointer",
-          }}
-        >
+        <button style={btn}>
           Login
         </button>
+
       </form>
+
     </div>
+
   );
+
 }
+
+const input = {
+  width:"100%",
+  padding:"15px",
+  marginTop:"20px",
+  border:"none",
+  borderRadius:"10px"
+};
+
+const btn = {
+  width:"100%",
+  padding:"15px",
+  marginTop:"20px",
+  background:"#d4af37",
+  border:"none",
+  borderRadius:"10px",
+  fontWeight:"bold"
+};
