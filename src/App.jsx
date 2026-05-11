@@ -1,21 +1,37 @@
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDePC2d62_Y9gmzqN2QzcQDU38ESJYIrmM",
-  authDomain: "ss-genpower.firebaseapp.com",
-  projectId: "ss-genpower",
-  storageBucket: "ss-genpower.firebasestorage.app",
-  messagingSenderId: "1002801053984",
-  appId: "1:1002801053984:web:405ff85c488bc723d69745",
-  measurementId: "G-6MYNLYXMPG"
-};
+import Login from "./admin/Login";
+import Dashboard from "./admin/Dashboard";
 
-const app = initializeApp(firebaseConfig);
+function Home() {
+  return (
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "#001a14",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        color: "#d4af37",
+        fontSize: "40px",
+        fontWeight: "bold",
+      }}
+    >
+      SS GENPOWER
+    </div>
+  );
+}
 
-const db = getFirestore(app);
-const auth = getAuth(app);
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/admin" element={<Login />} />
+        <Route path="/admin/dashboard" element={<Dashboard />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
 
-export { db, auth };
-export default app;
+export default App;
