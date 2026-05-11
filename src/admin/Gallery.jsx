@@ -1,4 +1,22 @@
+import { useState } from "react";
+
 export default function Gallery() {
+
+  const [preview,setPreview] = useState("");
+
+  const showImage = (e) => {
+
+    const file = e.target.files[0];
+
+    if(file){
+
+      const url = URL.createObjectURL(file);
+
+      setPreview(url);
+
+    }
+
+  };
 
   return (
 
@@ -18,10 +36,33 @@ export default function Gallery() {
 
       <input
         type="file"
+        onChange={showImage}
         style={{
           marginTop:"30px"
         }}
       />
+
+      {
+        preview && (
+
+          <div style={{
+            marginTop:"30px"
+          }}>
+
+            <img
+              src={preview}
+              alt=""
+              style={{
+                width:"100%",
+                maxWidth:"400px",
+                borderRadius:"20px"
+              }}
+            />
+
+          </div>
+
+        )
+      }
 
     </div>
 
